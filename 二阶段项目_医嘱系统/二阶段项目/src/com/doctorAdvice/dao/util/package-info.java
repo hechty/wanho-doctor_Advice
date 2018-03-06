@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package com.doctorAdvice.util;
+package com.doctorAdvice.dao.util;

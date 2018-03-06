@@ -1,5 +1,12 @@
 package com.doctorAdvice.entry.user;
 
-public class Administrator {
+import java.util.List;
 
+public class Administrator extends User{
+	
+	public List<User> queryAllUser(){
+		
+	}
+	
+	
 }
