@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package com.doctorAdvice.vo;
+package com.doctorAdvice.entry;
