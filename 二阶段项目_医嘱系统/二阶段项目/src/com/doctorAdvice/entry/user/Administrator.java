@@ -8,6 +8,7 @@ public class Administrator extends User{
 	
 	public List<User> queryAllUser(){
 		
+		return null;
 	}
 	
 	
