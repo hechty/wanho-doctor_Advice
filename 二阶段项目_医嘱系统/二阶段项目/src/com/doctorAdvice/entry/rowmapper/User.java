@@ -87,12 +87,14 @@ public class User
 			newLoginName = rs.getString(3);
 			newLoginPwd = rs.getString(4);
 			newType = rs.getString(5);
+			
+			return new User(newId, newName, newLoginName, newLoginPwd, newType);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		
-		return new User(newId, newName, newLoginName, newLoginPwd, newType);
+		return null;
 	}
 	
 	
