@@ -1,6 +1,12 @@
 package com.doctorAdvice.entry.rowmapper;
 
-public class User {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.doctorAdvice.dao.RowMapper;
+
+public class User 
+	implements RowMapper<User>{
 	private String name;
 	private String loginName;
 	private String loginPwd;
@@ -12,7 +18,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String loginName, String loginPwd, String userType, int userId) {
+	public User(int userId,String name, String loginName, String loginPwd, String userType) {
 		super();
 		this.name = name;
 		this.loginName = loginName;
@@ -65,6 +71,28 @@ public class User {
 	public String toString() {
 		return "User [name=" + name + ", loginName=" + loginName + ", loginPwd=" + loginPwd + ", userType=" + userType
 				+ ", userId=" + userId + "]";
+	}
+
+	@Override
+	public User rowMapper(ResultSet rs) {
+		// TODO Auto-generated method stub
+		int newId = 0;
+		String newName = null;
+		String newLoginName = null;
+		String newLoginPwd = null;
+		String newType = null;	
+		try {
+			newId = rs.getInt(1);
+			newName = rs.getString(2);
+			newLoginName = rs.getString(3);
+			newLoginPwd = rs.getString(4);
+			newType = rs.getString(5);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return new User(newId, newName, newLoginName, newLoginPwd, newType);
 	}
 	
 	
