@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.doctorAdvice.dao.Dao;
-import com.doctorAdvice.dao.UserDao;
 import com.doctorAdvice.entry.rowmapper.User;
 import com.doctorAdvice.entry.user.Administrator;
 

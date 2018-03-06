@@ -44,4 +44,41 @@ public class DoctorService {
 	public List<AdviceDrug> queryAllAdviceDrug(Advice advice){
 		return Dao.queryByOne(new AdviceDrug(), "advice_id", advice.getAdviceId());
 	}
+	
+	/**
+	 * 根据Id查找AdviceDrug
+	 * @param adviceDrugId
+	 * @return
+	 */
+	public AdviceDrug queryAdviceDrugById(int adviceDrugId) {
+		return Dao.queryByKey(new AdviceDrug(), "id", adviceDrugId);
+	}
+	
+	/**
+	 * 添加一条医嘱用药
+	 */
+	public int addAdviceDrug(AdviceDrug adviceDrug) {
+		return Dao.baseAdd(adviceDrug);
+	}
+	
+	/**
+	 * 修改adciceDrug 
+	 * @param adviceDrug
+	 * @return
+	 */
+	public int updateAdviceDrug(AdviceDrug adviceDrug) {
+		return Dao.baseUpdate(adviceDrug, "id", adviceDrug.getAdId());
+	}
+	
+	/**
+	 * 根据id删除adviceDrug
+	 * @param adviceDrugId
+	 * @return
+	 */
+	public int deleteAdviceDrug(int adviceDrugId) {
+		//级联删除
+		Dao.deleteByOne(new AdviceDrug(), "id", adviceDrugId);
+	}
+	
+	
 }
