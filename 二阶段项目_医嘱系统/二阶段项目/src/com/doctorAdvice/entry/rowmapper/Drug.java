@@ -3,10 +3,13 @@ package com.doctorAdvice.entry.rowmapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.doctorAdvice.common.TableName;
 import com.doctorAdvice.dao.RowMapper;
 
 public class Drug 
 	implements RowMapper<Drug>{
+	public static final String tableName = TableName.drug;
+	
 	//药品id
 	private int id;
 	//药品名称
@@ -95,6 +98,25 @@ public class Drug
 		
 		
 		
+	}
+	@Override
+	public Object[] getProperty() {
+		// TODO Auto-generated method stub
+		Object[] obj = {id, name, loc, spec, comment, inventy};
+		
+		return obj;
+	}
+	@Override
+	public String getSqlFlag() {
+		// TODO Auto-generated method stub
+		
+		String sqlFlag = "?,?,?,?,?,?";
+		return sqlFlag;
+	}
+	@Override
+	public String getTableName() {
+		// TODO Auto-generated method stub
+		return tableName;
 	}
 	
 	

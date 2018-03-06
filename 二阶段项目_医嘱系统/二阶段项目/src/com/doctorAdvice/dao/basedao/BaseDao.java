@@ -40,6 +40,13 @@ public class BaseDao {
 		return count;
 	}
 	
+	/**
+	 * 基础查询方法,返回特定对象的列表.
+	 * @param rm 紧用于记录泛型类型.可以是new RowMapper().
+	 * @param sql
+	 * @param args
+	 * @return
+	 */
 	public static <T> List<T> baseQuery(RowMapper<T> rm, String sql, Object... args){
 		List<T> list = new ArrayList<>();
 		conn = DbUtil.getConnection();
@@ -61,7 +68,32 @@ public class BaseDao {
 		}
 		
 		return list;
+	}
+	
+	/**
+	 * 基础插入操作,返回数据库变动记录条数
+	 * @param rm
+	 * @return
+	 */
+	public static int baseAdd(RowMapper rm) {
+		int count = 0;
+		String sql = "INSERT INTO" + rm.getTableName() + "VALUES(" + rm.getSqlFlag() + ")";
+		Object[] args = rm.getProperty();
+		conn = DbUtil.getConnection();
+		pst = DbUtil.getPreparedStatement(conn, sql);
+		try {
+			for(int i = 0; i < args.length; i++) {
+				pst.setObject(i+1, args[i]);
+			}
+			count = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DbUtil.close(rs, pst, conn);
+		}
 		
+		return count;
 	}
 	
 }

@@ -5,17 +5,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.util.List;
 
+import com.doctorAdvice.common.TableName;
 import com.doctorAdvice.dao.RowMapper;
 //import com.doctorAdvice.entry.other.Patient;
 
 public class Advice 
 	implements RowMapper<Advice>{
+	public static final String tableName = TableName.advice;
 	private int adviceId;
 	private String patientName;
 	private String patientBed;
 	private Date date;
 	private String comment;
-	private String sataus;
+	private String status;
 	private int doctorId;
 //	private List<AdviceDrug> adviceDrugs;
 	
@@ -69,7 +71,7 @@ public class Advice
 		this.patientBed = patientBed;
 		this.date = date;
 		this.comment = comment;
-		this.sataus = sataus;
+		this.status = sataus;
 		this.doctorId = doctorId;
 	}
 
@@ -136,13 +138,13 @@ public class Advice
 
 
 	public String getSataus() {
-		return sataus;
+		return status;
 	}
 
 
 
 	public void setSataus(String sataus) {
-		this.sataus = sataus;
+		this.status = sataus;
 	}
 
 
@@ -155,6 +157,35 @@ public class Advice
 
 	public void setDoctorId(int doctorId) {
 		this.doctorId = doctorId;
+	}
+
+
+
+	@Override
+	public Object[] getProperty() {
+		// TODO Auto-generated method stub
+		Object[] obj = {adviceId, patientName, patientBed, date, comment, 
+							status, doctorId};
+		
+		return obj;
+	}
+
+
+
+	@Override
+	public String getSqlFlag() {
+		// TODO Auto-generated method stub
+		String sqlFlag = "?,?,?,?,?,?,?";
+		return sqlFlag;
+
+	}
+
+
+
+	@Override
+	public String getTableName() {
+		// TODO Auto-generated method stub
+		return tableName;
 	}
 	
 	
