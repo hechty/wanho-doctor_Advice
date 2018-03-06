@@ -1,4 +1,4 @@
-package com.doctorAdvice.entry.user;
+package com.doctorAdvice.entry.rowmapper;
 
 public class User {
 	private String name;
