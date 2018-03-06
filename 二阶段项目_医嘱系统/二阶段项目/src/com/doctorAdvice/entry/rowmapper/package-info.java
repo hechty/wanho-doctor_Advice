@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package com.doctorAdvice.entry.dbtable;
+package com.doctorAdvice.entry.rowmapper;
