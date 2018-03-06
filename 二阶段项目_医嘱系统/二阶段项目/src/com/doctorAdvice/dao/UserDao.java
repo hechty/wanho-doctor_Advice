@@ -1,15 +1,15 @@
 package com.doctorAdvice.dao;
 
 import java.sql.Connection;
+import java.util.List;
 
-public class UserDao {
+import com.doctorAdvice.dao.basedao.BaseDao;
+import com.doctorAdvice.entry.rowmapper.User;
+
+public class UserDao extends BaseDao{
 	private Connection conn;
 	
-	public boolean checkLogin(String userName, String userPwd) {
-		String sql = "SELECT * FROM users WHERE loginname = ?";
-		
-		
-		
-		return false;
-	}
+	
+	
+//	public <T> List<T> queryById()
 }
