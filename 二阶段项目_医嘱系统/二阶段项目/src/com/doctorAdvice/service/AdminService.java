@@ -49,8 +49,14 @@ public class AdminService {
 		return UserDao.deleteUserById(id);
 	}
 	
-	public void addUser(User user) {
-		
+	/**
+	 * 增加用户
+	 * @param user
+	 * @return
+	 */
+	public boolean addUser(User user) {
+		return UserDao.addUser(user);
 	}
+	
 	
 }
