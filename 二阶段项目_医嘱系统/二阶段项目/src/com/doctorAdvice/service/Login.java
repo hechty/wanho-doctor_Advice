@@ -1,5 +1,9 @@
 package com.doctorAdvice.service;
 
-public class Login {
+import com.doctorAdvice.dao.Dao;
 
+public class Login {
+	public int checkLogin(String userName, String userPwd) {
+		return Dao.checkLogin(userName, userPwd);
+	}
 }
