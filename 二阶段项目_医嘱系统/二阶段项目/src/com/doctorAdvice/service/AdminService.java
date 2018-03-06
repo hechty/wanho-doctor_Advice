@@ -27,7 +27,7 @@ public class AdminService {
 	 */
 	public List<User> getUsers(){
 		List<User> list = new ArrayList<>();
-		list = UserDao.queryAllUser();
+		list = Dao.queryAll(new User());
 		return list;
 	}
 	
@@ -37,7 +37,7 @@ public class AdminService {
 	 * @return User Or null
 	 */
 	public User queryUserById(int userId) {
-		return UserDao.queryUserById(userId);
+		return Dao.queryByKey(new User(), "id", userId);
 	}
 	
 	/**
@@ -45,8 +45,8 @@ public class AdminService {
 	 * @param id
 	 * @return 成功则返回true,否则false
 	 */
-	public boolean deleteUserById(int id) {
-		return UserDao.deleteUserById(id);
+	public int deleteUserById(int id) {
+		return Dao.deleteByOne(new User(), "id", id);
 	}
 	
 	/**
@@ -54,9 +54,8 @@ public class AdminService {
 	 * @param user
 	 * @return
 	 */
-	public boolean addUser(User user) {
-		return UserDao.addUser(user);
+	public int addUser(User user) {
+		return Dao.baseAdd(user);
 	}
-	
 	
 }
