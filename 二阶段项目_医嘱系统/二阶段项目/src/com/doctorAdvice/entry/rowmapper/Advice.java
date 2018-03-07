@@ -6,13 +6,13 @@ import java.sql.SQLException;
 //import java.util.List;
 
 import com.doctorAdvice.common.TableName;
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.RowMapper;
-//import com.doctorAdvice.entry.other.Patient;
 
 
 public class Advice 
 	implements RowMapper<Advice>{
-	public static final String tableName = TableName.advice;
+//	public static final String tableName = TableName.advice;
 	private int adviceId;
 	private String patientName;
 	private String patientBed;
@@ -186,7 +186,7 @@ public class Advice
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
-		return tableName;
+		return TableProperties.tableStruct.getProperty("advice");
 	}
 
 

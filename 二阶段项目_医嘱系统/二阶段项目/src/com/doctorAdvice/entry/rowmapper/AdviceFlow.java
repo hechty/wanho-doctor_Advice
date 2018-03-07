@@ -4,8 +4,8 @@ import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.RowMapper;
-import com.doctorAdvice.service.TableProperties;
 
 public class AdviceFlow 
 	implements RowMapper<AdviceFlow>{

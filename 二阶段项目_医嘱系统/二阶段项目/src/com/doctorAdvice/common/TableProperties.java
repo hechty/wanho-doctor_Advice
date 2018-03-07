@@ -1,4 +1,4 @@
-package com.doctorAdvice.service;
+package com.doctorAdvice.common;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

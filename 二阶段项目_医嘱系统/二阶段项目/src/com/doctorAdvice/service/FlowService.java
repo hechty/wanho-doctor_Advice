@@ -2,6 +2,7 @@ package com.doctorAdvice.service;
 
 import java.util.Date;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.Advice;
 import com.doctorAdvice.entry.rowmapper.AdviceFlow;

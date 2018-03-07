@@ -50,6 +50,7 @@ public class BaseDao {
 	public static <T> List<T> baseQuery(RowMapper<T> rm, String sql, Object... args){
 		List<T> list = new ArrayList<>();
 		conn = DbUtil.getConnection();
+		
 		pst = DbUtil.getPreparedStatement(conn, sql);
 		try {
 			for(int i = 0; i < args.length; i++) {

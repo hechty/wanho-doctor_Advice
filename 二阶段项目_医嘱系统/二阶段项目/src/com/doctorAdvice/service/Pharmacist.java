@@ -2,6 +2,7 @@ package com.doctorAdvice.service;
 
 import java.util.List;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.ComplexDao;
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.Advice;
@@ -11,6 +12,22 @@ import com.doctorAdvice.entry.rowmapper.User;
 
 public class Pharmacist extends User{
 	
+	
+	public Pharmacist() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Pharmacist(int userId, String name, String loginName, String loginPwd, String userType) {
+		super(userId, name, loginName, loginPwd, userType);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Pharmacist(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 查询所有doctor已提交的Advice
 	 * @return

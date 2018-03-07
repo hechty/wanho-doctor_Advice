@@ -8,18 +8,27 @@ import com.doctorAdvice.entry.rowmapper.User;
 
 
 public class Administrator extends User{
-	private Administrator admin;
+
+	
+	
+	public Administrator(int userId, String name, String loginName, String loginPwd, String userType) {
+		super(userId, name, loginName, loginPwd, userType);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Administrator(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public Administrator() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Administrator(Administrator admin) {
-		super();
-		this.admin = admin;
-	}
-	
+
 	/**
 	 * 取得所有用户,返回用户列表
 	 * @return 用户列表

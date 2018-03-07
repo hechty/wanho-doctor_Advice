@@ -4,11 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.doctorAdvice.common.TableName;
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.RowMapper;
 
 public class AdviceDrug 
 	implements RowMapper<AdviceDrug>{
-	public static final String tableName = TableName.adviceDrug;
+//	public static final String tableName = TableName.adviceDrug;
 	private int adId;
 	private int drugId;
 	private int drugCount;
@@ -85,7 +86,7 @@ public class AdviceDrug
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
-		return tableName;
+		return TableProperties.tableStruct.getProperty("adviceDrug");
 	}
 	
 	

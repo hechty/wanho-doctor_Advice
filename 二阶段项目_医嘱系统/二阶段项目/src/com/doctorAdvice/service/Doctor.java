@@ -2,6 +2,7 @@ package com.doctorAdvice.service;
 
 import java.util.List;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.ComplexDao;
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.Advice;
@@ -12,6 +13,23 @@ import com.doctorAdvice.entry.rowmapper.User;
 public class Doctor extends User{
 
 	
+	
+	
+	public Doctor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Doctor(int userId, String name, String loginName, String loginPwd, String userType) {
+		super(userId, name, loginName, loginPwd, userType);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Doctor(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 创建医嘱
 	 * @param advice

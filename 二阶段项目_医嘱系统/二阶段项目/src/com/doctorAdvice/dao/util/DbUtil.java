@@ -48,13 +48,18 @@ public class DbUtil {
 	 * @return
 	 */
 	public static Connection getConnection() {
-		if(tl == null) {
-			try {
-				tl.set(dataSource.getConnection());
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			if(tl.get() == null || tl.get().isClosed()) {
+				try {
+					tl.set(dataSource.getConnection());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return tl.get();

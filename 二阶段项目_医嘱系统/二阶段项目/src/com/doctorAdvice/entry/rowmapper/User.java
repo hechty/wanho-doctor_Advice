@@ -4,16 +4,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.doctorAdvice.common.TableName;
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.RowMapper;
 
 public class User 
 	implements RowMapper<User>{
-	public static final String tableName = TableName.user;
+//	public static final String tableName = TableName.user;
 	private String name;
 	private String loginName;
 	private String loginPwd;
 	private String userType;
 	private int userId;
+	
+	public User(User user) {
+		this.setLoginName(user.getLoginName());
+		this.setLoginPwd(user.getLoginPwd());
+		this.setName(user.getName());
+		this.setUserId(user.getUserId());
+		this.setUserType(user.getUserType());
+	}
 	
 	public User() {
 		super();
@@ -85,10 +94,11 @@ public class User
 		String newType = null;	
 		try {
 			newId = rs.getInt(1);
-			newName = rs.getString(2);
-			newLoginName = rs.getString(3);
-			newLoginPwd = rs.getString(4);
-			newType = rs.getString(5);
+			
+			newLoginName = rs.getString(2);
+			newLoginPwd = rs.getString(3);
+			newType = rs.getString(4);
+			newName = rs.getString(5);
 			
 			return new User(newId, newName, newLoginName, newLoginPwd, newType);
 		} catch (SQLException e) {
@@ -118,7 +128,7 @@ public class User
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
-		return tableName;
+		return TableProperties.tableStruct.getProperty("user");
 	}
 	
 	

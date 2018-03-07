@@ -2,6 +2,7 @@ package com.doctorAdvice.service;
 
 import java.util.List;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.Advice;
 import com.doctorAdvice.entry.rowmapper.AdviceDrug;
@@ -9,6 +10,22 @@ import com.doctorAdvice.entry.rowmapper.User;
 
 public class Nurse extends User{
 	
+	
+	public Nurse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Nurse(int userId, String name, String loginName, String loginPwd, String userType) {
+		super(userId, name, loginName, loginPwd, userType);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Nurse(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 查询所有药剂师已审批的医嘱
 	 * @return

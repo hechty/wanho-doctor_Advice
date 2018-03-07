@@ -3,6 +3,7 @@ package com.doctorAdvice.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.basedao.BaseDao;
 import com.doctorAdvice.dao.util.DbUtil;
 import com.doctorAdvice.entry.rowmapper.User;
@@ -16,15 +17,17 @@ public class Dao extends BaseDao{
 	 */
 	public static int checkLogin(String userName, String userPwd) {
 		int status = 0;
-		String sql = "SELECT * FROM users WHERE loginname = ?";
+		String sql = "SELECT * FROM " +  TableProperties.tableStruct.getProperty("user") + " WHERE "+ 
+				TableProperties.tableStruct.getProperty("user.loginName") + " = ?";
+
 		List<User> list =  baseQuery(new User(), sql, userName);
 		if(list.size() == 0) {
 			return status;
 		}
-		if(!userPwd.equals(list.get(0).getLoginPwd())) {
-			status = 1;
-		}else {
+		if(userPwd.equals(list.get(0).getLoginPwd())) {
 			status = 2;
+		}else {
+			status = 1;
 		}
 		
 		return status;
