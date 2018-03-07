@@ -111,8 +111,17 @@ public class DbUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+	}
+	
+	public static void rollBack(Connection conn) {
+		try {
+			if(conn != null) {
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

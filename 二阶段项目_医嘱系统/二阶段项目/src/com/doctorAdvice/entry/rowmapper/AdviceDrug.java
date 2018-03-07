@@ -10,7 +10,7 @@ public class AdviceDrug
 	implements RowMapper<AdviceDrug>{
 	public static final String tableName = TableName.adviceDrug;
 	private int adId;
-	private int drugInventy;
+	private int drugId;
 	private int drugCount;
 	private int adviceId;
 	public AdviceDrug() {
@@ -20,7 +20,7 @@ public class AdviceDrug
 	public AdviceDrug(int adId, int drugInventy, int drugCount, int adviceId) {
 		super();
 		this.adId = adId;
-		this.drugInventy = drugInventy;
+		this.drugId = drugInventy;
 		this.drugCount = drugCount;
 		this.adviceId = adviceId;
 	}
@@ -30,11 +30,11 @@ public class AdviceDrug
 	public void setAdId(int adId) {
 		this.adId = adId;
 	}
-	public int getDrugInventy() {
-		return drugInventy;
+	public int getDrugId() {
+		return drugId;
 	}
-	public void setDrugInventy(int drugInventy) {
-		this.drugInventy = drugInventy;
+	public void setDrugId(int drugInventy) {
+		this.drugId = drugInventy;
 	}
 	public int getDrugCount() {
 		return drugCount;
@@ -73,7 +73,7 @@ public class AdviceDrug
 	@Override
 	public Object[] getProperty() {
 		// TODO Auto-generated method stub
-		Object[] obj = {adId, drugInventy, drugCount, adviceId};
+		Object[] obj = {adId, drugId, drugCount, adviceId};
 		return obj;
 	}
 	@Override

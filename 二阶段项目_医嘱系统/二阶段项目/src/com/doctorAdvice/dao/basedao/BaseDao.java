@@ -11,9 +11,9 @@ import com.doctorAdvice.dao.RowMapper;
 import com.doctorAdvice.dao.util.DbUtil;
 
 public class BaseDao {
-	private static Connection conn = null;
-	private static PreparedStatement pst = null;
-	private static ResultSet rs = null;
+	protected static Connection conn = null;
+	protected static PreparedStatement pst = null;
+	protected static ResultSet rs = null;
 	
 	/**
 	 * 基础执行sql语句Dml方法,返回变动的记录条数
@@ -77,6 +77,19 @@ public class BaseDao {
 	 */
 	public static int baseAdd(RowMapper rm) {
 		int count = 0;
+		conn = DbUtil.getConnection();
+		count = baseAddWithConnection(rm, conn);
+		DbUtil.close(null, null, conn);
+		return count;
+	}
+	
+	/**
+	 * 基础插入操作,返回数据库变动记录条数;不关闭连接
+	 * @param rm
+	 * @return
+	 */
+	protected static int baseAddWithConnection(RowMapper rm, Connection conn) {
+		int count = 0;
 		String sql = "INSERT INTO" + rm.getTableName() + "VALUES(" + rm.getSqlFlag() + ")";
 		Object[] args = rm.getProperty();
 		conn = DbUtil.getConnection();
@@ -90,7 +103,7 @@ public class BaseDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DbUtil.close(rs, pst, conn);
+			DbUtil.close(rs, pst, null);
 		}
 		
 		return count;
@@ -105,9 +118,24 @@ public class BaseDao {
 	 */
 	public static int baseUpdate(RowMapper rm, String columName, Object value) {
 		int count = 0;
+		conn = DbUtil.getConnection();
+		count = baseUpdateWithConnection(conn, rm, columName, value);
+		DbUtil.close(null, null, conn);
+		return count;
+	}
+	
+	/**
+	 * 基础更新方法,只能更新一条记录;不关闭连接
+	 * @param conn
+	 * @param rm
+	 * @param columName
+	 * @param value
+	 * @return
+	 */
+	protected static int baseUpdateWithConnection(Connection conn,RowMapper rm, String columName, Object value) {
+		int count = 0;
 		String sql = "UPDATE" + rm.getTableName() + "VALUES(" + rm.getSqlFlag() + ") WHERE " + columName + " = ?";
 		Object[] args = rm.getProperty();
-		conn = DbUtil.getConnection();
 		pst = DbUtil.getPreparedStatement(conn, sql);
 		try {
 			for(int i = 0; i < args.length; i++) {
@@ -119,7 +147,7 @@ public class BaseDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DbUtil.close(rs, pst, conn);
+			DbUtil.close(rs, pst, null);
 		}
 		
 		return count;

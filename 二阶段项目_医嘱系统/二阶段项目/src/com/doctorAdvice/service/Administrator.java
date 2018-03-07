@@ -7,7 +7,7 @@ import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.User;
 
 
-public class Administrator {
+public class Administrator extends User{
 	private Administrator admin;
 
 	public Administrator() {
