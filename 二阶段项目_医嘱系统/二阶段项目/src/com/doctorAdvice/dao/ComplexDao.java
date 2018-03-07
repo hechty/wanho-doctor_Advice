@@ -120,4 +120,24 @@ public class ComplexDao extends Dao{
 		
 		return count;
 	}
+	
+	/**
+	 * 
+	 * 根据页数和每页的项数查询
+	 * @param page
+	 * @param entryPerPag
+	 * @param rm
+	 * @return
+	 */
+	public static <T> List<T> queryAllByPage(int page, int entryPerPag, RowMapper<T> rm){
+		int lo = (page - 1) * entryPerPag + 1;
+		int hi = page * entryPerPag;
+		int max = getSum(rm);
+		hi = hi > max ? max: hi;
+		
+		String sql = "SELECT  r.* FROM (SELECT ROWNUM ro, e.* FROM " + rm.getTableName() + " e) r WHERE ( r.ro >= ? AND r.ro <= ?)";
+		//查询lo~hi的对象
+		List<T> list = baseQuery(rm, sql, lo, hi);
+		return list;
+	}
 }

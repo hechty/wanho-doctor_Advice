@@ -1,6 +1,6 @@
 package com.doctorAdvice.entry.rowmapper;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,7 +16,7 @@ public class AdviceFlow
 	private int actorId;
 	private String status;
 	private Date changeDate;
-	public AdviceFlow(int id, int adviceId, String comment, int actorId, String status, Date changeDate) {
+	public AdviceFlow(int adviceId, String comment, int actorId, String status, Date changeDate,int id) {
 		super();
 		this.id = id;
 		this.adviceId = adviceId;
@@ -73,7 +73,7 @@ public class AdviceFlow
 	@Override
 	public String getSqlFlag() {
 		// TODO Auto-generated method stub
-		String sqlFlag = "?,?,?,?,?,?";
+		String sqlFlag = TableProperties.tableStruct.getProperty("adviceFlowSeq") +  ".NEXTVAL,?,?,?,?,?";
 		return sqlFlag;
 	}
 	@Override
@@ -98,14 +98,13 @@ public class AdviceFlow
 			nactorId = rs.getInt(4);
 			status = rs.getString(5);
 			changeDate = rs.getDate(6);
-			return new AdviceFlow(nid, nadviceId, ncomment, nactorId, status, changeDate);
+			return new AdviceFlow(nadviceId, ncomment, nactorId, status, changeDate,nid);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		
+
 		return null;
 	}
 	

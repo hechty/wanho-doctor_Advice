@@ -1,8 +1,10 @@
 package com.doctorAdvice.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.doctorAdvice.dao.basedao.BaseDao;
+import com.doctorAdvice.dao.util.DbUtil;
 import com.doctorAdvice.entry.rowmapper.User;
 
 public class Dao extends BaseDao{
@@ -78,6 +80,29 @@ public class Dao extends BaseDao{
 	public static int deleteByOne(RowMapper rm, String columName, Object value) {
 		String sql = "DELETE FROM " + rm.getTableName() + " WHERE " + columName + " = ?";
 		return baseDml(sql, value);
+	}
+	
+	/**
+	 * 查询rm的记录总数
+	 * @param rm
+	 * @return
+	 */
+	protected static int getSum(RowMapper rm) {
+		int sum = 0;
+		String sql = "SELECT SUM(*) FROM " + rm.getTableName();
+		conn = DbUtil.getConnection();
+		pst = DbUtil.getPreparedStatement(conn, sql);
+		try {
+			rs = pst.executeQuery();
+			sum = rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DbUtil.close(rs, pst, conn);
+		}
+		
+		return sum;
 	}
 	
 	

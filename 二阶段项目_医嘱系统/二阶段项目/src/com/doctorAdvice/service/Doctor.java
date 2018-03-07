@@ -99,6 +99,16 @@ public class Doctor extends User{
 		return Dao.baseUpdate(adviceDrug, "id", adviceDrug.getAdId());
 	}
 	
+	/**
+	 * 确认医嘱,设置医嘱状态为doctorOk
+	 * @param id
+	 */
+	public void confirmAdviceById(int id, String comment) {
+		Advice advice = queryAdviceById(id);
+		FlowService.changeStatus(advice, this.getUserId(),TableProperties.tableStruct.getProperty("advice.status.doctorOk"), comment);
+		
+	}
+	
 //	/**
 //	 * 根据id删除adviceDrug
 //	 * @param adviceDrugId
