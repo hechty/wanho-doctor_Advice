@@ -5,17 +5,17 @@ import java.util.List;
 
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.User;
-import com.doctorAdvice.entry.user.Administrator;
 
-public class AdminService {
+
+public class Administrator {
 	private Administrator admin;
 
-	public AdminService() {
+	public Administrator() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminService(Administrator admin) {
+	public Administrator(Administrator admin) {
 		super();
 		this.admin = admin;
 	}
