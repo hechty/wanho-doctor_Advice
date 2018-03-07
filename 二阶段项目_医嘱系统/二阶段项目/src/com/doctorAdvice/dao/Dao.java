@@ -108,5 +108,11 @@ public class Dao extends BaseDao{
 		return sum;
 	}
 	
+	public static int updateById(RowMapper rm, Object id) {
+		
+		return baseUpdate(rm, "id", id);
+	}
+	
+
 	
 }

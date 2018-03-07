@@ -1,12 +1,26 @@
 package com.doctorAdvice.view;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import org.netbeans.lib.awtextra.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+
+import com.doctorAdvice.common.TableProperties;
+import com.doctorAdvice.entry.rowmapper.User;
+import com.doctorAdvice.service.Administrator;
 
 public class AddUserFrame extends JFrame {
-
+	private Administrator admin;
 	private JButton submitBtn;
 	private JButton cancelBtn;
 	private JLabel jLabel0;
@@ -15,31 +29,36 @@ public class AddUserFrame extends JFrame {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JPanel jPanel1;
-	private JTextField accountText;
-	private JTextField usernameText;
-	private JTextField repasswordText;
-	private JTextField passwordText;
-	private JComboBox type;
+	private JTextField userName;
+	private JTextField loginName;
+	private JTextField loginPwd2;
+	private JTextField loginPwd;
+	private JComboBox userType;
 
+	
 	public AddUserFrame() {
 		initComponents();
 	}
 
+	public AddUserFrame(User user) {
+		initComponents();
+		admin = new Administrator(user);
+	}
 	private void initComponents() {
 
 		jPanel1 = new JPanel();
-		type = new JComboBox();
+		userType = new JComboBox();
 		jLabel0 = new JLabel();
 		jLabel1 = new JLabel();
 		jLabel2 = new JLabel();
-		accountText = new JTextField();
-		repasswordText = new JTextField();
+		userName = new JTextField();
+		loginPwd2 = new JTextField();
 		submitBtn = new JButton();
 		cancelBtn = new JButton();
 		jLabel3 = new JLabel();
-		usernameText = new JTextField();
+		loginName = new JTextField();
 		jLabel4 = new JLabel();
-		passwordText = new JTextField();
+		loginPwd = new JTextField();
 
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		setTitle("新增用户");
@@ -69,15 +88,15 @@ public class AddUserFrame extends JFrame {
 		jLabel1.setText("确认密码");
 		jPanel1.add(jLabel1, new AbsoluteConstraints(100, 220, 90, 40));
 
-		jPanel1.add(accountText, new AbsoluteConstraints(200, 20, 190, 40));
-		jPanel1.add(usernameText, new AbsoluteConstraints(200, 70, 190, 40));
-		type.setModel(new DefaultComboBoxModel(new String[] { "管理员", "医师",
+		jPanel1.add(userName, new AbsoluteConstraints(200, 20, 190, 40));
+		jPanel1.add(loginName, new AbsoluteConstraints(200, 70, 190, 40));
+		userType.setModel(new DefaultComboBoxModel(new String[] { "管理员", "医师",
 				"药剂师", "护士" }));
-		type.setSelectedIndex(0);
-		jPanel1.add(type, new AbsoluteConstraints(200, 120, 190, 40));
-		type.getAccessibleContext().setAccessibleName("type");
-		jPanel1.add(passwordText, new AbsoluteConstraints(200, 170, 190, 40));
-		jPanel1.add(repasswordText, new AbsoluteConstraints(200, 220, 190, 40));
+		userType.setSelectedIndex(0);
+		jPanel1.add(userType, new AbsoluteConstraints(200, 120, 190, 40));
+		userType.getAccessibleContext().setAccessibleName("type");
+		jPanel1.add(loginPwd, new AbsoluteConstraints(200, 170, 190, 40));
+		jPanel1.add(loginPwd2, new AbsoluteConstraints(200, 220, 190, 40));
 
 		submitBtn.setFont(new java.awt.Font("微软雅黑", 0, 18));
 		submitBtn.setText("确认新增");
@@ -93,6 +112,30 @@ public class AddUserFrame extends JFrame {
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String newType = null;
+				switch(userType.getSelectedItem().toString()) {
+				case "管理员":
+					newType = TableProperties.tableStruct.getProperty("user.userType.admin");
+					break;
+				case "医生":
+					newType = TableProperties.tableStruct.getProperty("user.userType.doctor");
+					break;
+				case "药剂师":
+					newType = TableProperties.tableStruct.getProperty("user.userType.pharmacist");
+					break;	
+				case "护士":
+					newType = TableProperties.tableStruct.getProperty("user.userType.nurse");
+					break;	
+				}
+				//用户编号由数据库序列自动维护
+				User newUser = new User(-1, userName.getText(), loginName.getText(), loginPwd.getText(), newType);
+				int result = admin.addUser(newUser);
+				if(result == 1) {
+					JOptionPane.showMessageDialog(null, "添加成功","提示",JOptionPane.CANCEL_OPTION);
+				}else {
+					JOptionPane.showMessageDialog(null, "添加失败","提示",JOptionPane.CANCEL_OPTION);
+				}
+				
 				dispose();
 			}
 		});

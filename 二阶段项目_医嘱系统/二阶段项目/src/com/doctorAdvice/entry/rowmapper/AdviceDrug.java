@@ -78,15 +78,20 @@ public class AdviceDrug
 		return obj;
 	}
 	@Override
-	public String getSqlFlag() {
+	public String getInsertSqlFlag() {
 		// TODO Auto-generated method stub
-		String sqlFlag = "?,?,?,?";
+		String sqlFlag = TableProperties.tableStruct.getProperty("adviceDrugSeq") + ".NEXTVAL(),?,?,?";
 		return sqlFlag;
 	}
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
 		return TableProperties.tableStruct.getProperty("adviceDrug");
+	}
+	@Override
+	public String getUpdateSqlFlag() {
+		String sqlFlag = "?,?,?,?";
+		return sqlFlag;
 	}
 	
 	

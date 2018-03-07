@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.doctorAdvice.dao.Dao;
+import com.doctorAdvice.dao.RowMapper;
 import com.doctorAdvice.entry.rowmapper.User;
 
 
@@ -64,6 +65,26 @@ public class Administrator extends User{
 	 */
 	public int addUser(User user) {
 		return Dao.baseAdd(user);
+	}
+	
+	public String[][] queryAllUser(){
+		List<User> list = Dao.queryAll(this);
+		int row = list.size();
+		String[][] value = new String[row][5];
+		while(row-- > 0) {
+			value[row][0] = String.valueOf(list.get(row).getUserId());
+			value[row][1] = String.valueOf(list.get(row).getLoginName());
+			value[row][2] = String.valueOf(list.get(row).getLoginPwd());
+			value[row][3] = String.valueOf(list.get(row).getUserType());
+			value[row][4] = String.valueOf(list.get(row).getName());
+		}
+		return value;
+		
+	}
+	
+	public int updateById(RowMapper rm, Object id) {
+		
+		return Dao.updateById(rm, id);
 	}
 	
 }

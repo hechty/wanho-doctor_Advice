@@ -89,11 +89,11 @@ public class UserLoginFrame extends JFrame {
 					String userType = user.getUserType();
 					String adminType = TableProperties.tableStruct.getProperty("user.userType.admin");
 					if(userType.equals(adminType)) {
-						UserListFrame userListFrame = new UserListFrame();
+						UserListFrame userListFrame = new UserListFrame(user);
 						userListFrame.setLocationRelativeTo(null);
 						userListFrame.setVisible(true);
 					}else {
-						AdviceListFrame adviceListFrame = new AdviceListFrame();
+						AdviceListFrame adviceListFrame = new AdviceListFrame(user);
 						adviceListFrame.setLocationRelativeTo(null);
 						adviceListFrame.setVisible(true);
 					}

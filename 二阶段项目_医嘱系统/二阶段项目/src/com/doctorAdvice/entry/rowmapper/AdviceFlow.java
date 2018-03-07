@@ -71,9 +71,9 @@ public class AdviceFlow
 		return TableProperties.tableStruct.getProperty("adviceFlow");
 	}
 	@Override
-	public String getSqlFlag() {
+	public String getInsertSqlFlag() {
 		// TODO Auto-generated method stub
-		String sqlFlag = TableProperties.tableStruct.getProperty("adviceFlowSeq") +  ".NEXTVAL,?,?,?,?,?";
+		String sqlFlag = TableProperties.tableStruct.getProperty("userSeq") +  ".NEXTVAL,?,?,?,?,?";
 		return sqlFlag;
 	}
 	@Override
@@ -106,6 +106,11 @@ public class AdviceFlow
 		
 
 		return null;
+	}
+	@Override
+	public String getUpdateSqlFlag() {
+		String sqlFlag = "?,?,?,?,?,?";
+		return sqlFlag;
 	}
 	
 	

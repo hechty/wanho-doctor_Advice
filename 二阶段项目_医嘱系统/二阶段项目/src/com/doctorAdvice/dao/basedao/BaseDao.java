@@ -91,7 +91,7 @@ public class BaseDao {
 	 */
 	protected static int baseAddWithConnection(RowMapper rm, Connection conn) {
 		int count = 0;
-		String sql = "INSERT INTO" + rm.getTableName() + "VALUES(" + rm.getSqlFlag() + ")";
+		String sql = "INSERT INTO" + rm.getTableName() + "VALUES(" + rm.getInsertSqlFlag() + ")";
 		Object[] args = rm.getProperty();
 		conn = DbUtil.getConnection();
 		pst = DbUtil.getPreparedStatement(conn, sql);
@@ -135,7 +135,7 @@ public class BaseDao {
 	 */
 	protected static int baseUpdateWithConnection(Connection conn,RowMapper rm, String columName, Object value) {
 		int count = 0;
-		String sql = "UPDATE" + rm.getTableName() + "VALUES(" + rm.getSqlFlag() + ") WHERE " + columName + " = ?";
+		String sql = "UPDATE" + rm.getTableName() + "VALUES(" + rm.getUpdateSqlFlag() + ") WHERE " + columName + " = ?";
 		Object[] args = rm.getProperty();
 		pst = DbUtil.getPreparedStatement(conn, sql);
 		try {

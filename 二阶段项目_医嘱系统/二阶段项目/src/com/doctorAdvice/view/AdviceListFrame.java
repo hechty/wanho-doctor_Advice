@@ -1,12 +1,23 @@
 package com.doctorAdvice.view;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import org.netbeans.lib.awtextra.*;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+
+import com.doctorAdvice.entry.rowmapper.User;
+
 public class AdviceListFrame extends JFrame {
+	private User user;
 	private JButton createBtn;
 	private JButton detailBtn;
 	private JButton drugManageBtn;
@@ -16,6 +27,11 @@ public class AdviceListFrame extends JFrame {
 	private JButton upJButton;
 	private JButton nextJButton;
 
+	public AdviceListFrame(User user) {
+		this();
+		this.user = user;
+	}
+	
 	public AdviceListFrame() {
 		initComponents();
 	}

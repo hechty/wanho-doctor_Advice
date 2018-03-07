@@ -5,10 +5,14 @@ import javax.swing.*;
 
 import org.netbeans.lib.awtextra.*;
 
+import com.doctorAdvice.common.TableProperties;
+import com.doctorAdvice.entry.rowmapper.User;
+import com.doctorAdvice.service.Administrator;
+
 public class UpdateUserFrame extends JFrame {
 	private JButton submitBtn;
 	private JButton cancelBtn;
-	private JComboBox jComboBox1;
+	private JComboBox userType;
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
@@ -21,11 +25,16 @@ public class UpdateUserFrame extends JFrame {
 	private JTextField idText;
 	private JTextField accountText;
 	private JLabel jLabel0;
-
+	private User user;
+	private Administrator admin;
 	public UpdateUserFrame() {
 		initComponents();
 	}
-
+	public UpdateUserFrame(Administrator admin,User user) {
+		this.admin = admin;
+		this.user = user;
+		initComponents();
+	}
 	private void initComponents() {
 
 		jPanel1 = new JPanel();
@@ -35,12 +44,12 @@ public class UpdateUserFrame extends JFrame {
 		jLabel3 = new JLabel();
 		jLabel4 = new JLabel();
 		jLabel5 = new JLabel();
-		usernameText = new JTextField();
-		idText = new JTextField();
-		accountText = new JTextField();
-		jComboBox1 = new JComboBox();
-		repasswordText = new JTextField();
-		passwordText = new JTextField();
+		usernameText = new JTextField(user.getLoginName());
+		idText = new JTextField(user.getUserId());
+		accountText = new JTextField(user.getName());
+		userType = new JComboBox();
+		repasswordText = new JTextField(user.getLoginPwd());
+		passwordText = new JTextField(user.getLoginPwd());
 		submitBtn = new JButton();
 		cancelBtn = new JButton();
 
@@ -89,10 +98,10 @@ public class UpdateUserFrame extends JFrame {
 		usernameText.setEditable(false);
 		jPanel1.add(usernameText, new AbsoluteConstraints(170, 70, 190, 40));
 
-		jComboBox1.setFont(new Font("微软雅黑", 0, 18));
-		jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "管理员",
+		userType.setFont(new Font("微软雅黑", 0, 18));
+		userType.setModel(new DefaultComboBoxModel(new String[] { "管理员",
 				"医   生", "药剂师", "护   士" }));
-		jPanel1.add(jComboBox1, new AbsoluteConstraints(170, 120, 190, 40));
+		jPanel1.add(userType, new AbsoluteConstraints(170, 120, 190, 40));
 
 		accountText.setFont(new Font("微软雅黑", 0, 18));
 		accountText.setEditable(false);
@@ -117,7 +126,33 @@ public class UpdateUserFrame extends JFrame {
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				String newType = null;
+				switch(userType.getSelectedItem().toString()) {
+				case "管理员":
+					newType = TableProperties.tableStruct.getProperty("user.userType.admin");
+					break;
+				case "医生":
+					newType = TableProperties.tableStruct.getProperty("user.userType.doctor");
+					break;
+				case "药剂师":
+					newType = TableProperties.tableStruct.getProperty("user.userType.pharmacist");
+					break;	
+				case "护士":
+					newType = TableProperties.tableStruct.getProperty("user.userType.nurse");
+					break;	
+				}
+				
+				
+				if(passwordText.getText() != null && passwordText.getText().equals(repasswordText.getText())) {
+					user.setLoginPwd(passwordText.getText());
+					user.setUserType(newType);
+					admin.updateById(user, user.getUserId());
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "密码不一致","提示",JOptionPane.CANCEL_OPTION);
+				}
+				
+				
 			}
 		});
 		cancelBtn.addActionListener(new ActionListener() {
@@ -138,6 +173,11 @@ public class UpdateUserFrame extends JFrame {
 
 			}
 		});
+	}
+
+	public void getUser(User newUser) {
+		// TODO Auto-generated method stub
+		this.user = newUser;
 	}
 
 }

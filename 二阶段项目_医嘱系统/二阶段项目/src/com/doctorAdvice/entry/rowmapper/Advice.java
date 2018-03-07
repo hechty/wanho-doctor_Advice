@@ -174,9 +174,9 @@ public class Advice
 
 
 	@Override
-	public String getSqlFlag() {
+	public String getInsertSqlFlag() {
 		// TODO Auto-generated method stub
-		String sqlFlag = "?,?,?,?,?,?,?";
+		String sqlFlag = TableProperties.tableStruct.getProperty("adviceSeq") + ".NEXTVAL() ,?,?,?,?,?,?";
 		return sqlFlag;
 
 	}
@@ -187,6 +187,14 @@ public class Advice
 	public String getTableName() {
 		// TODO Auto-generated method stub
 		return TableProperties.tableStruct.getProperty("advice");
+	}
+
+
+
+	@Override
+	public String getUpdateSqlFlag() {
+		String sqlFlag = "?,?,?,?,?,?,?";
+		return sqlFlag;
 	}
 
 
