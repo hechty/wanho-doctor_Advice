@@ -40,11 +40,11 @@ public class Doctor extends User{
 	
 	/**
 	 * 根据医嘱id,查询所有对应的用药明细
-	 * @param advice
+	 * @param adviceId
 	 * @return
 	 */
-	public List<AdviceDrug> queryAllAdviceDrug(Advice advice){
-		return Dao.queryByOne(new AdviceDrug(), "advice_id", advice.getAdviceId());
+	public List<AdviceDrug> queryAllAdviceDrug(int adviceId){
+		return Dao.queryByOne(new AdviceDrug(), "advice_id", adviceId);
 	}
 	
 	/**
@@ -77,11 +77,7 @@ public class Doctor extends User{
 	 * @return 添加失败返回0;添加成功返回adviceDrugs.size()*2;
 	 */
 	public int addAdviceDrugs(List<AdviceDrug> adviceDrugs) {
-//		int count = 3;
-//		//默认存在并发问题,循环直到另一线程不对同一记录修改.
-//		while(count == 3) {
-//			count = ;
-//		}
+
 		
 		return ComplexDao.addAdviceDrugs(adviceDrugs);
 	}
@@ -94,8 +90,6 @@ public class Doctor extends User{
 	 * @return
 	 */
 	public int updateAdviceDrug(AdviceDrug adviceDrug) {
-		
-		
 		return Dao.baseUpdate(adviceDrug, "id", adviceDrug.getAdId());
 	}
 	

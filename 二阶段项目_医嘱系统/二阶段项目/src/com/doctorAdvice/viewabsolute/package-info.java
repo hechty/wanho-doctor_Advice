@@ -5,4 +5,4 @@
  * @author Administrator
  *
  */
-package com.doctorAdvice.view.pharmacist;
+package com.doctorAdvice.viewabsolute;
