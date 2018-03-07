@@ -11,5 +11,11 @@
 	<classpathentry kind="lib" path="D:/code/文档&amp;教程&amp;源码/JAVA/万和笔记/二阶段项目by马腾/ORACLE版/wanhe_second_swing/lib/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="D:/code/文档&amp;教程&amp;源码/JAVA/万和笔记/二阶段项目by马腾/ORACLE版/wanhe_second_swing/lib/commons-pool-1.5.5.jar"/>
 	<classpathentry kind="lib" path="D:/code/文档&amp;教程&amp;源码/JAVA/万和笔记/二阶段项目by马腾/ORACLE版/wanhe_second_swing/lib/swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/commons-pool-1.5.5.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/ojdbc14_11g.jar"/>
+	<classpathentry kind="lib" path="F:/中转文件/ORACLE版/wanhe_second_swing/lib/swing-layout-1.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,6 +9,8 @@ import javax.swing.*;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
+import com.doctorAdvice.service.Doctor;
+
 @SuppressWarnings("serial")
 public class AddAdviceFrame extends JFrame {
 
@@ -26,7 +28,14 @@ public class AddAdviceFrame extends JFrame {
 	private JTextArea adviceRemarkText;
 	private JTextField bedDetailText;
 	private JTextField patientNameText;
+	private Doctor doctor;
+	private String[][] value;
 
+	public AddAdviceFrame(Doctor doctor) {
+		this.doctor = doctor;
+		initComponents();
+	}
+	
 	public AddAdviceFrame() {
 		initComponents();
 	}
@@ -92,7 +101,8 @@ public class AddAdviceFrame extends JFrame {
 		jTable1.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"序号", "名称", "数量" }));
 		jScrollPane1.setViewportView(jTable1);
-
+//		String [][] drugDetails = doctor.queryAllAdviceDrug()
+		
 		jTable1.setModel(new DefaultTableModel(new Object[][] {
 				{ 1, "阿莫西林", 10 }, { 2, "板蓝根", 5 } }, new String[] { "序号",
 				"名称", "数量" }));

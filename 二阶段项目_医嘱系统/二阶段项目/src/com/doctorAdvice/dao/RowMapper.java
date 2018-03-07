@@ -4,6 +4,12 @@ import java.sql.ResultSet;
 
 public interface RowMapper<T> {
 	
+//	/**
+//	 * 返回属性值对应的字符串数组,顺序与数据库一致
+//	 * @return
+//	 */
+//	String[] toArray();
+	
 	/**
 	 * 获取对应数据库的表名
 	 * @return

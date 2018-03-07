@@ -14,10 +14,16 @@ import javax.swing.table.DefaultTableModel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
+import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.entry.rowmapper.User;
+import com.doctorAdvice.service.Doctor;
+import com.doctorAdvice.service.Nurse;
+import com.doctorAdvice.service.Pharmacist;
 
 public class AdviceListFrame extends JFrame {
-	private User user;
+	private Doctor doctor = null;
+	private Pharmacist pharm = null;
+	private Nurse nurse = null;
 	private JButton createBtn;
 	private JButton detailBtn;
 	private JButton drugManageBtn;
@@ -26,10 +32,21 @@ public class AdviceListFrame extends JFrame {
 	private JTable jTable1;
 	private JButton upJButton;
 	private JButton nextJButton;
+	private int page = 1;
 
 	public AdviceListFrame(User user) {
-		this();
-		this.user = user;
+		String doctorType = TableProperties.tableStruct.getProperty("user.userType.doctor");
+		String pharmType = TableProperties.tableStruct.getProperty("user.userType.pharmacist");
+		String nurseType = TableProperties.tableStruct.getProperty("user.userType.nurse");
+		
+		if(doctorType.equals(user.getUserType())) {
+			doctor = new Doctor(user);
+		}else if(pharmType.equals(user.getUserType())) {
+			pharm = new Pharmacist(user);
+		}else {
+			nurse = new Nurse(user);
+		}
+		initComponents();
 	}
 	
 	public AdviceListFrame() {
@@ -52,25 +69,42 @@ public class AdviceListFrame extends JFrame {
 		getContentPane().setLayout(new AbsoluteLayout());
 		jPanel1.setLayout(new AbsoluteLayout());
 		// 类型：创建医嘱-药房发药-取药成功
-		jTable1.setModel(new DefaultTableModel(new Object[][] {
-				{ 1, "李老", "1号", "多喝水", "新建医嘱", "张三", "2017-03-03" },
-				{ 4, "颜太太", "4号", "多运动", "药房发药", "张三", "2017-05-05" } },
+		
+		
+		String [][] value = null;
+		if(doctor != null) {
+			value = doctor.queryAllAdvice(page,5);
+		}else if(pharm != null) {
+			value = pharm.queryAllAdvice(page,5);
+		}else if(nurse != null){
+			value = nurse.queryAllAdvice(page,5);
+		}else {
+			
+		}
+				
+		jTable1.setModel(new DefaultTableModel(value,
 				new String[] { "序号", "病人姓名", "床位信息", "医嘱备注", "医嘱状态", "主治医生",
 						"创建时间" }));
 		jScrollPane1.setViewportView(jTable1);
 
 		jPanel1.add(jScrollPane1, new AbsoluteConstraints(20, 40, 620, 330));
-
+		
 		createBtn.setFont(new java.awt.Font("微软雅黑", 0, 18));
-		createBtn.setText("创建医嘱");
-		jPanel1.add(createBtn, new AbsoluteConstraints(680, 80, 110, 30));
+			createBtn.setText("创建医嘱");
+		if(doctor != null) {
+			jPanel1.add(createBtn, new AbsoluteConstraints(680, 80, 110, 30));
+		}
+				
 		detailBtn.setFont(new java.awt.Font("微软雅黑", 0, 18));
 		detailBtn.setText("查看详情");
 		jPanel1.add(detailBtn, new AbsoluteConstraints(680, 180, 110, 30));
 
 		drugManageBtn.setFont(new java.awt.Font("微软雅黑", 0, 18));
 		drugManageBtn.setText("药品管理");
-		jPanel1.add(drugManageBtn, new AbsoluteConstraints(680, 280, 110, 30));
+		if(pharm != null) {
+			jPanel1.add(drugManageBtn, new AbsoluteConstraints(680, 280, 110, 30));
+		}
+		
 
 		upJButton.setFont(new java.awt.Font("微软雅黑", 0, 18));
 		upJButton.setText("上一页");
@@ -87,7 +121,7 @@ public class AdviceListFrame extends JFrame {
 		createBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAdviceFrame addAdviceFrame = new AddAdviceFrame();
+				AddAdviceFrame addAdviceFrame = new AddAdviceFrame(doctor);
 				addAdviceFrame.setLocationRelativeTo(null);
 				addAdviceFrame.setVisible(true);
 			}

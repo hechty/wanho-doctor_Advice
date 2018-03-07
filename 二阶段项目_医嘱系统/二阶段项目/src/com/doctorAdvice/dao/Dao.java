@@ -1,11 +1,14 @@
 package com.doctorAdvice.dao;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.basedao.BaseDao;
 import com.doctorAdvice.dao.util.DbUtil;
+import com.doctorAdvice.entry.rowmapper.Advice;
 import com.doctorAdvice.entry.rowmapper.User;
 
 public class Dao extends BaseDao{
@@ -108,11 +111,45 @@ public class Dao extends BaseDao{
 		return sum;
 	}
 	
+	/**
+	 * 查询rm的记录总数
+	 * @param rm
+	 * @return
+	 */
+	protected static int getSumOf(RowMapper rm,String columName, Object value) {
+		int sum = 0;
+		String sql = "SELECT SUM(*) FROM " + rm.getTableName() + " WHERE " + columName + " = ?";
+		conn = DbUtil.getConnection();
+		pst = DbUtil.getPreparedStatement(conn, sql);
+		
+		try {
+			pst.setObject(1, value);
+			rs = pst.executeQuery();
+			sum = rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DbUtil.close(rs, pst, conn);
+		}
+		
+		return sum;
+	}
+	
 	public static int updateById(RowMapper rm, Object id) {
 		
 		return baseUpdate(rm, "id", id);
 	}
 	
+	public static String[][] to2dArray(List<? extends RowMapper> list) {
+	
+		String [][] value = new String[list.size()][new Advice().getProperty().length];
+		int i = list.size();
+		while(i-- > 0) {
+			value[i] = Arrays.stream(list.get(i).getProperty()).map(x -> x.toString()).collect(Collectors.toList()).toArray(new String[0]);
+		}
+		return  value;
 
+	}
 	
 }

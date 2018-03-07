@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.doctorAdvice.dao.util.DbUtil;
+import com.doctorAdvice.entry.rowmapper.Advice;
 import com.doctorAdvice.entry.rowmapper.AdviceDrug;
 import com.doctorAdvice.entry.rowmapper.Drug;
 import com.doctorAdvice.exception.UpdateAdviceDrugConcurrencyException;
@@ -139,5 +140,54 @@ public class ComplexDao extends Dao{
 		//查询lo~hi的对象
 		List<T> list = baseQuery(rm, sql, lo, hi);
 		return list;
+	}
+	
+	/**
+	 * 
+	 * 根据页数和每页的项数查询
+	 * @param page
+	 * @param entryPerPag
+	 * @param rm
+	 * @return
+	 */
+	public static <T> List<T> queryAnyByPage(int page, int entryPerPag, RowMapper<T> rm, String columName, Object value){
+		int lo = (page - 1) * entryPerPag + 1;
+		int hi = page * entryPerPag;
+		int max = getSumOf(rm, columName, value);
+		hi = hi > max ? max: hi;
+		if(lo > hi){
+			lo = (hi / entryPerPag - 1) * entryPerPag + 1;
+		}
+		
+		String sql = "SELECT  r.* FROM (SELECT ROWNUM ro, e.* FROM " + rm.getTableName() + " e WHERE + " + columName + " = ?) r WHERE ( r.ro >= ? AND r.ro <= ?)";
+		//查询lo~hi的对象
+		List<T> list = baseQuery(rm, sql, value,lo, hi);
+		return list;
+	}
+	
+	public static int complexAdd(Advice advice, List<AdviceDrug> list) {
+		int count = 0;
+		conn = DbUtil.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			count += baseAddWithConnection(advice, conn);
+			for(AdviceDrug ad: list) {
+				count += addAdviceDrugWithoutCommit(conn, ad);
+			}
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			DbUtil.rollBack(conn);
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			count = 0;
+			
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

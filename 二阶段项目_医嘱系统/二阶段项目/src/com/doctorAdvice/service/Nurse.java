@@ -3,6 +3,7 @@ package com.doctorAdvice.service;
 import java.util.List;
 
 import com.doctorAdvice.common.TableProperties;
+import com.doctorAdvice.dao.ComplexDao;
 import com.doctorAdvice.dao.Dao;
 import com.doctorAdvice.entry.rowmapper.Advice;
 import com.doctorAdvice.entry.rowmapper.AdviceDrug;
@@ -30,11 +31,11 @@ public class Nurse extends User{
 	 * 查询所有药剂师已审批的医嘱
 	 * @return
 	 */
-	public List<Advice> queryAllAdvice(){
-		return Dao.queryByOne(new Advice(), 
+	public String[][] queryAllAdvice(int page, int entryPerPag){
+		List<Advice> list = ComplexDao.queryAnyByPage(page, entryPerPag, new Advice(), 
 				TableProperties.tableStruct.getProperty("advice.status"), 
-				TableProperties.tableStruct.getProperty("advice.status.pharmacistOk"));
-		
+				TableProperties.tableStruct.getProperty("advice.status.pharmacistOk"));	
+		return Dao.to2dArray(list);
 	}
 	
 	/**

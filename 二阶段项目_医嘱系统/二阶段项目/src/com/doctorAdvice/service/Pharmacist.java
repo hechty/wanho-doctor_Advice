@@ -32,9 +32,11 @@ public class Pharmacist extends User{
 	 * 查询所有doctor已提交的Advice
 	 * @return
 	 */
-	public List<Advice> queryAllAdvice(){
-		return Dao.queryByOne(new Advice(), TableProperties.tableStruct.getProperty("advice.status"), 
-				TableProperties.tableStruct.getProperty("advice.status.doctorOk"));
+	public String[][] queryAllAdvice(int page, int entryPerPag){
+		List<Advice> list = ComplexDao.queryAnyByPage(page, entryPerPag, new Advice(), 
+				TableProperties.tableStruct.getProperty("advice.status"), 
+				TableProperties.tableStruct.getProperty("advice.status.doctorOk"));	
+		return Dao.to2dArray(list);
 	}
 	
 	/**

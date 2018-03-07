@@ -1,6 +1,8 @@
 package com.doctorAdvice.service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.doctorAdvice.common.TableProperties;
 import com.doctorAdvice.dao.ComplexDao;
@@ -43,8 +45,9 @@ public class Doctor extends User{
 	 * 查询所有医嘱
 	 * @return
 	 */
-	public List<Advice> queryAllAdvice(){
-		return Dao.queryAll(new Advice());
+	public String[][] queryAllAdvice(int page, int entryPerPage){
+		List<Advice> list = ComplexDao.queryAllByPage(page, entryPerPage, new Advice());
+		return  Dao.to2dArray(list);
 	}
 	
 	/**
