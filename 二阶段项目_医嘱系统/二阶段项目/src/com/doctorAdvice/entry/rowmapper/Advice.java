@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import com.doctorAdvice.common.TableName;
 import com.doctorAdvice.dao.RowMapper;
 //import com.doctorAdvice.entry.other.Patient;
-import com.doctorAdvice.service.ChangeStatus;
+
 
 public class Advice 
-	implements RowMapper<Advice>, ChangeStatus{
+	implements RowMapper<Advice>{
 	public static final String tableName = TableName.advice;
 	private int adviceId;
 	private String patientName;
@@ -143,7 +143,7 @@ public class Advice
 	}
 
 
-	@Override
+
 	public void setStatus(String sataus) {
 		this.status = sataus;
 	}

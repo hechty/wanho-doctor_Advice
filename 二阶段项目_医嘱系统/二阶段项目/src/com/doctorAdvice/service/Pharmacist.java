@@ -31,10 +31,9 @@ public class Pharmacist extends User{
 	 * @param id
 	 */
 	public void confirmAdviceById(int id) {
-		String columName = TableProperties.tableStruct.getProperty("advice.id");
 		Advice advice = queryAdviceById(id);
-		advice.setStatus(TableProperties.tableStruct.getProperty("advice.status.doctorOk"));
-		Dao.baseUpdate(advice, columName, id);
+		FlowService.changeStatus(advice, "advice.status.doctorOk");
+		
 	}
 	
 	/**
@@ -42,10 +41,8 @@ public class Pharmacist extends User{
 	 * @param id
 	 */
 	public void rollbackAdviceById(int id) {
-		String columName = TableProperties.tableStruct.getProperty("advice.id");
 		Advice advice = queryAdviceById(id);
-		advice.setStatus(TableProperties.tableStruct.getProperty("advice.status.new"));
-		Dao.baseUpdate(advice, columName, id);
+		FlowService.changeStatus(advice, TableProperties.tableStruct.getProperty("advice.status.new"));
 	}
 	
 	
