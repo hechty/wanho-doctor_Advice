@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import com.doctorAdvice.common.TableName;
 import com.doctorAdvice.dao.RowMapper;
 //import com.doctorAdvice.entry.other.Patient;
+import com.doctorAdvice.service.ChangeStatus;
 
 public class Advice 
-	implements RowMapper<Advice>{
+	implements RowMapper<Advice>, ChangeStatus{
 	public static final String tableName = TableName.advice;
 	private int adviceId;
 	private String patientName;
@@ -142,8 +143,8 @@ public class Advice
 	}
 
 
-
-	public void setSataus(String sataus) {
+	@Override
+	public void setStatus(String sataus) {
 		this.status = sataus;
 	}
 
@@ -187,8 +188,6 @@ public class Advice
 		// TODO Auto-generated method stub
 		return tableName;
 	}
-	
-	
-	
-	
+
+
 }

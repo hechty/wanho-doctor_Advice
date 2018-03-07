@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//config/dbcp.properties=UTF-8
+encoding//config/table_struct.properties=UTF-8
